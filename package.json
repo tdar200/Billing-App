@@ -21,7 +21,9 @@
     "postpackage": "electron-packager ./ --out=./release-builds"
   },
   "dependencies": {
-    "react": "^16.13.1",
+    "bootstrap": "^5.1.3",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
