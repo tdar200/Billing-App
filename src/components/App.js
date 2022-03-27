@@ -1,19 +1,69 @@
-import React, {useState} from 'react'
-import {Container} from "react-bootstrap"
-// import Table from "react-bootstrap/Table";
-// import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
+import { Container, Form, Button } from "react-bootstrap";
 const App = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
+  const [phone, setPhone] = useState("");
 
-	const [logs, setLogs] = useState([
-	
-	])
+  const submitHandler = (e) => {
+    e.prevenDefault();
+  };
 
-	return (
-		<Container>
-			<h1>React Electron Boilerplate</h1>
-			<p>This is a simple boilerplate for using React with Electron</p>
-		</Container>
-	)
-}
+  return (
+    <Container>
+      <Form onSubmit={submitHandler}>
+        <Form.Group className='mb-3' controlId='formBasicName'>
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            required
+            value={name}
+            type='text'
+            onChange={(e) => setName(e.target.value)}
+            placeholder='Enter Full Name'
+          />
+        </Form.Group>
 
-export default App
+        <Form.Group className='mb-3' controlId='formBasicEmail'>
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            value={email}
+            type='email'
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder='Enter Email'
+          />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='formBasicId'>
+          <Form.Label>Identication Number</Form.Label>
+          <Form.Control
+            required
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            type='number'
+            placeholder='Enter ID Card Number'
+          />
+        </Form.Group>
+
+        <Form.Group className='mb-3' controlId='formBasicPassword'>
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            required
+            value={phone}
+            maxLength='11'
+            minLength='11'
+            onChange={(e) => setPhone(e.target.value)}
+            type='number'
+            placeholder='Enter Phone Number'
+          />
+        </Form.Group>
+
+        <Button variant='primary' type='submit'>
+          Submit
+        </Button>
+      </Form>
+    </Container>
+  );
+};
+
+export default App;
