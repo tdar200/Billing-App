@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
+import { ipcRenderer, ipcMain } from "electron";
+
 const App = () => {
-  const [invoiceNumber, setInvoiceNumber] = useState();
-  const [issueDate, setIssueDate] = useState(new Date())
-  const [dueDate, setDueDate] = useState(new Date())
+  const [invoiceNumber, setInvoiceNumber] = useState(0);
+  const [issueDate, setIssueDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(new Date());
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
@@ -12,10 +14,68 @@ const App = () => {
   const [internetSpeed, setInternetSpeed] = useState(0);
   const [cost, setCost] = useState(0);
   const [prevBalance, setPrevBalance] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0)
+  const [alert, setAlert] = useState({
+    show: false,
+    message: "",
+    variant: "success",
+  });
+  
+  
+  function showAlert(message, variant = "success", seconds = 3000) {
+    setAlert({
+      show: true,
+      message,
+      variant,
+    });
+
+    setTimeout(() => {
+      setAlert({
+        show: false,
+        message: "",
+        variant: "success",
+      });
+    }, seconds);
+  }
+  
+
+  useEffect(() => {
+    ipcRenderer.send("logs:load");
+
+    ipcRenderer.on("logs:get", (e, logs) => {
+      console.log(logs);
+    });
+  }, []);
+
+  function addInvoice (item) {
+    console.log("addInvoice", Item)
+    ipcRenderer.send("logs:add", item);
+    showAlert("Log Added");
+  };
+
+
 
   const submitHandler = (e) => {
-    e.prevenDefault();
+    e.preventDefault();
+
+    const item = {
+      invoiceNumber,
+      issueDate,
+      dueDate,
+      name,
+      email,
+      id,
+      phone,
+      billingMonth,
+      internetSpeed,
+      cost,
+      prevBalance,
+      total,
+    };
+
+    console.log(item)
+
+    addInvoice(item);
   };
 
   return (
@@ -34,7 +94,7 @@ const App = () => {
         <Form.Group className='mb-3' controlId='formBasicIssueDate'>
           <Form.Label>Issue Date</Form.Label>
           <Form.Control
-            value={invoiceNumber}
+            value={issueDate}
             onChange={(e) => setIssueDate(e.target.value)}
             type='date'
             placeholder='Issue Date'
@@ -44,7 +104,7 @@ const App = () => {
         <Form.Group className='mb-3' controlId='formBasicDueDate'>
           <Form.Label>Due Date</Form.Label>
           <Form.Control
-            value={invoiceNumber}
+            value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
             type='date'
             placeholder='Due Date'
