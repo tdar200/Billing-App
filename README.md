@@ -1,11 +1,3 @@
-### Install
-
-#### Clone this repo
-
-```
-git clone https://github.com/bradtraversy/simple-electron-react.git
-```
-
 #### Install dependencies
 
 ```
