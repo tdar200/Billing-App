@@ -14,14 +14,13 @@ const App = () => {
   const [internetSpeed, setInternetSpeed] = useState(0);
   const [cost, setCost] = useState(0);
   const [prevBalance, setPrevBalance] = useState(0);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const [alert, setAlert] = useState({
     show: false,
     message: "",
     variant: "success",
   });
-  
-  
+
   function showAlert(message, variant = "success", seconds = 3000) {
     setAlert({
       show: true,
@@ -37,7 +36,6 @@ const App = () => {
       });
     }, seconds);
   }
-  
 
   useEffect(() => {
     ipcRenderer.send("logs:load");
@@ -47,13 +45,9 @@ const App = () => {
     });
   }, []);
 
-  function addInvoice (item) {
-    console.log("addInvoice", Item)
-    ipcRenderer.send("logs:add", item);
-    showAlert("Log Added");
-  };
-
-
+  function addInvoice(item) {
+    console.log("addInvoice", Item);
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -73,9 +67,9 @@ const App = () => {
       total,
     };
 
-    console.log(item)
-
-    addInvoice(item);
+    ipcRenderer.send("logs:add", item);
+    showAlert("Log Added");
+    console.log(item);
   };
 
   return (

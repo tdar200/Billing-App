@@ -2,6 +2,7 @@ const path = require("path");
 const url = require("url");
 const { app, BrowserWindow, ipcMain, Menu } = require("electron");
 const fs = require("fs");
+const { NavItem } = require("react-bootstrap");
 
 let mainWindow;
 
@@ -73,10 +74,25 @@ ipcMain.on("logs:load", sendLogs);
 
 // Create log
 ipcMain.on("logs:add", async (e, item) => {
- 
-
   try {
-    fs.writeFileSync("./billing.json", JSON.stringify(item));
+    if (fs.existsSync("./billing.json")) {
+      const logs = fs.readFileSync("./billing.json", "utf8");
+
+      let data = [].concat(JSON.parse(logs));
+
+      console.log("data 1", data)
+      console.log("item 1", item)
+
+      data.unshift((item));
+
+      console.log(data);
+
+      fs.writeFileSync("./billing.json", JSON.stringify(data));
+    } else {
+
+      console.log(JSON.stringify(item));
+      fs.writeFileSync("./billing.json", JSON.stringify(item));
+    }
   } catch (err) {
     console.error(err);
   }
@@ -99,11 +115,10 @@ async function sendLogs() {
     if (fs.existsSync("./billing.json")) {
       //file exists
       const logs = fs.readFileSync("./billing.json", "utf8");
-	  mainWindow.webContents.send("logs:get", JSON.stringify(logs));
+      mainWindow.webContents.send("logs:get", JSON.parse(logs));
     } else {
       console.log("no data");
     }
-
   } catch (err) {
     console.log(err);
   }
