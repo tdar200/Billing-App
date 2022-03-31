@@ -17,8 +17,8 @@ if (
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 1100,
-    height: 800,
+    width: 1600,
+    height: 1200,
     show: false,
     backgroundColor: "white",
     icon: `${__dirname}/assets/icon.png`,
@@ -77,15 +77,15 @@ ipcMain.on("logs:add", async (e, item) => {
   try {
     if (fs.existsSync("./billing.json")) {
       const logs = fs.readFileSync("./billing.json", "utf8");
+      console.log("parsed logs", JSON.parse(logs));
 
       let data = [].concat(JSON.parse(logs));
 
-      console.log("data 1", data)
-      console.log("item 1", item)
+      // console.log("data 1", data)
+      // console.log("item 1", item)
 
       data.unshift((item));
 
-      console.log(data);
 
       fs.writeFileSync("./billing.json", JSON.stringify(data));
     } else {
