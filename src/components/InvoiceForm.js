@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { ipcRenderer, ipcMain } from "electron";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./NavbarComponent";
 
 const InvoiceForm = () => {
@@ -75,6 +74,7 @@ const InvoiceForm = () => {
   return (
     <Container>
       <Navbar />
+      {alert.show && <Alert variant={alert.variant}>{alert.message}</Alert>}
       <Form onSubmit={submitHandler}>
         <Form.Group className='mb-3' controlId='formBasicInvoice'>
           <Form.Label>Invoice Number</Form.Label>

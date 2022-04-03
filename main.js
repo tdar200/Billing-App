@@ -72,7 +72,7 @@ app.on("ready", createMainWindow);
 // Load logs
 ipcMain.on("logs:load", sendLogs);
 
-// Create log
+// Create Invoice
 ipcMain.on("logs:add", async (e, item) => {
   try {
     if (fs.existsSync("./billing.json")) {
@@ -98,6 +98,33 @@ ipcMain.on("logs:add", async (e, item) => {
   }
 });
 
+
+ipcMain.on("customer:load", sendCustomers)
+
+ipcMain.on("customer:add", async (e, item) => {
+  try {
+    if (fs.existsSync("./customer.json")) {
+      const logs = fs.readFileSync("./customer.json", "utf8");
+      console.log("customer", JSON.parse(logs));
+
+      let data = [].concat(JSON.parse(logs));
+
+      // console.log("data 1", data)
+      // console.log("item 1", item)
+
+      data.unshift(item);
+
+      fs.writeFileSync("./customer.json", JSON.stringify(data));
+    } else {
+      console.log("customer",JSON.stringify(item));
+      fs.writeFileSync("./customer.json", JSON.stringify(item));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+
 // Delete log
 // ipcMain.on("logs:delete", async (e, id) => {
 //   try {
@@ -116,6 +143,22 @@ async function sendLogs() {
       //file exists
       const logs = fs.readFileSync("./billing.json", "utf8");
       mainWindow.webContents.send("logs:get", JSON.parse(logs));
+    } else {
+      console.log("no data");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function sendCustomers() {
+  try {
+    // const logs = await Log.find().sort({ created: 1 });
+
+    if (fs.existsSync("./customers.json")) {
+      //file exists
+      const logs = fs.readFileSync("./customers.json", "utf8");
+      mainWindow.webContents.send("customer:get", JSON.parse(logs));
     } else {
       console.log("no data");
     }

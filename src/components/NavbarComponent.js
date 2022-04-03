@@ -11,10 +11,10 @@ function NavbarComponent() {
         <Navbar.Collapse className='justify-content-end'>
           <NavDropdown
             id='nav-dropdown-dark-example'
-            title='Dropdown'
+            title='Menu'
             variant='dark'
           >
-            <Dropdown.Item>Create Customer</Dropdown.Item>
+            <Dropdown.Item>List Customers</Dropdown.Item>
 
             <NavDropdown.Divider />
 

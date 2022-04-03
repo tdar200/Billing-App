@@ -3,12 +3,20 @@ import { ipcRenderer } from "electron";
 import { Container, Table, Form, FormControl, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Navbar from "./NavbarComponent";
+import CustomerForm from "./CustomerForm";
 
 function Home() {
   const [data, setData] = useState(null);
+  const [customerData, setCustomerData] = useState(null);
 
   useEffect(() => {
     ipcRenderer.send("logs:load");
+
+    ipcRenderer.send("customer:load");
+
+    ipcRenderer.on("customer:get", (e, logs) => {
+      setCustomerData(logs);
+    });
 
     ipcRenderer.on("logs:get", (e, logs) => {
       setData(logs);
@@ -16,10 +24,11 @@ function Home() {
   }, []);
 
   console.log(data);
+  console.log(customerData);
 
   return (
     <Container>
-        <Navbar />
+      <Navbar />
       <Form className='d-flex flex-row mt-2 mb-2'>
         <FormControl
           className='mr-2'
@@ -35,6 +44,7 @@ function Home() {
           Search
         </Button>
       </Form>
+      <CustomerForm />
       <Table responsive striped bordered hover>
         <thead>
           <tr>
