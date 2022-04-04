@@ -45,7 +45,7 @@ function Home() {
         </Button>
       </Form>
       <CustomerForm />
-      <Table responsive striped bordered hover>
+      <Table className="mt-3" responsive striped bordered hover>
         <thead>
           <tr>
             <th>Invoice Id</th>

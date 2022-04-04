@@ -47,28 +47,31 @@ function CustomerForm() {
       {alert.show && <Alert variant={alert.variant}>{alert.message}</Alert>}
       <Form className='border' onSubmit={submitHandler}>
         <Container>
-          <Form.Group className='mb-3' controlId='formBasicName'>
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              required
-              value={name}
-              type='text'
-              onChange={(e) => setName(e.target.value)}
-              placeholder='Enter Full Name'
-            />
-          </Form.Group>
-          <Form.Group className='mb-3' controlId='formBasicPassword'>
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              required
-              value={phone}
-              maxLength='11'
-              minLength='11'
-              onChange={(e) => setPhone(e.target.value)}
-              type='number'
-              placeholder='Enter Phone Number'
-            />
-          </Form.Group>
+          <h1 className='text-center pt-2'>Add a Customer</h1>
+          <div className='d-flex flex-row'>
+            <Form.Group className='mb-3' controlId='formBasicName'>
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                value={name}
+                type='text'
+                onChange={(e) => setName(e.target.value)}
+                placeholder='Enter Full Name'
+              />
+            </Form.Group>
+            <Form.Group className='mb-3 ml-3' controlId='formBasicPassword'>
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                required
+                value={phone}
+                maxLength='11'
+                minLength='11'
+                onChange={(e) => setPhone(e.target.value)}
+                type='number'
+                placeholder='Enter Phone Number'
+              />
+            </Form.Group>
+          </div>
 
           <Form.Group className='mb-3' controlId='formBasicId'>
             <Form.Label>Identication Number</Form.Label>
@@ -81,7 +84,7 @@ function CustomerForm() {
             />
           </Form.Group>
 
-          <Button variant='primary' type='submit'>
+          <Button className='mb-3' variant='primary' type='submit'>
             Submit
           </Button>
         </Container>
