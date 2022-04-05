@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Navbar, NavDropdown, Dropdown } from "react-bootstrap";
 
-
 function NavbarComponent() {
   return (
     <Navbar bg='dark' variant='dark'>
@@ -14,7 +13,7 @@ function NavbarComponent() {
             title='Menu'
             variant='dark'
           >
-            <Dropdown.Item>List Customers</Dropdown.Item>
+            <Dropdown.Item href='#/customer'>List Customers</Dropdown.Item>
 
             <NavDropdown.Divider />
 

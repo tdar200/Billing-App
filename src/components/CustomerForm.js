@@ -48,8 +48,12 @@ function CustomerForm() {
       <Form className='border' onSubmit={submitHandler}>
         <Container>
           <h1 className='text-center pt-2'>Add a Customer</h1>
-          <div className='d-flex flex-row'>
-            <Form.Group className='mb-3' controlId='formBasicName'>
+          <div className='flex-div-parent'>
+            <Form.Group
+              style={{ marginRight: "1rem" }}
+              className='flex-div-child pr-3 mr-3 mb-3'
+              controlId='formBasicName'
+            >
               <Form.Label>Name</Form.Label>
               <Form.Control
                 required
@@ -59,7 +63,10 @@ function CustomerForm() {
                 placeholder='Enter Full Name'
               />
             </Form.Group>
-            <Form.Group className='mb-3 ml-3' controlId='formBasicPassword'>
+            <Form.Group
+              className='flex-div-child mb-3 pl-3 ml-3'
+              controlId='formBasicPassword'
+            >
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 required
@@ -84,9 +91,11 @@ function CustomerForm() {
             />
           </Form.Group>
 
-          <Button className='mb-3' variant='primary' type='submit'>
-            Submit
-          </Button>
+          <div className='d-flex flex-row-reverse'>
+            <Button className='mb-3' variant='primary' type='submit'>
+              Submit
+            </Button>
+          </div>
         </Container>
       </Form>
     </>

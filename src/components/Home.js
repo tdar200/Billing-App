@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ipcRenderer } from "electron";
 import { Container, Table, Form, FormControl, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Navbar from "./NavbarComponent";
 import CustomerForm from "./CustomerForm";
 
@@ -31,6 +30,7 @@ function Home() {
       <Navbar />
       <Form className='d-flex flex-row mt-2 mb-2'>
         <FormControl
+        style={{marginRight: "1rem"}}
           className='mr-2'
           aria-label='Search'
           placeholder='Search'
