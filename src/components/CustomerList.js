@@ -5,7 +5,7 @@ function CustomerList() {
   return (
     <div>
       <NavbarComponent />
-      CustomerList
+      CustomerList changes
     </div>
   );
 }
